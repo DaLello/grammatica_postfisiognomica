@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Opera — Grammatica Postfisiognomica</title>
+
+<!--
+  Questa pagina è un TEMPLATE: una sola pagina che mostra i dettagli di qualsiasi opera,
+  in base al parametro "id" nell'indirizzo (es. opera.html?id=01). I contenuti veri e
+  propri (immagine, riferimento, dissertazione) sono definiti in opere-data.js: modifica
+  quel file per cambiare i testi, non questo.
+-->
+
+<style>
+  :root {
+    --bg: #f4f3ef;
+    --ink: #111111;
+    --muted: #6b6a66;
+    --line: #111111;
+    --accent: #b5321c;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  a { color: inherit; }
+
+  .wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+  }
+
+  .nav .mark {
+    font-family: Georgia, serif;
+    font-size: 15px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .back {
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .back:hover { color: var(--ink); }
+
+  main { padding: 56px 0 80px; }
+
+  .figure {
+    border: 1px solid var(--line);
+    margin-bottom: 28px;
+  }
+
+  .figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .figure .missing {
+    aspect-ratio: 4 / 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    background:
+      repeating-linear-gradient(
+        135deg,
+        rgba(17,17,17,0.04) 0px,
+        rgba(17,17,17,0.04) 2px,
+        transparent 2px,
+        transparent 14px
+      );
+  }
+
+  h1.title {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    margin-bottom: 18px;
+  }
+
+  .reference {
+    border-left: 3px solid var(--accent);
+    padding: 4px 0 4px 16px;
+    margin-bottom: 40px;
+    color: var(--muted);
+    font-size: 14px;
+    letter-spacing: 0.01em;
+  }
+
+  .dissertation h2 {
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .dissertation p {
+    max-width: 68ch;
+    margin: 0 0 18px;
+  }
+
+  .dissertation p:last-child { margin-bottom: 0; }
+
+  .not-found {
+    padding: 80px 0;
+    color: var(--muted);
+  }
+
+  footer {
+    padding: 40px 0 64px;
+    border-top: 1px solid var(--line);
+  }
+
+  footer .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="mark">Grammatica Postfisiognomica</div>
+    <a class="back" href="index.html">← Indice</a>
+  </div>
+</header>
+
+<main class="wrap" id="content">
+  <!-- Il contenuto viene inserito qui via JavaScript, leggendo opere-data.js -->
+</main>
+
+<footer>
+  <div class="wrap row">
+    <div>Grammatica Postfisiognomica — © 2026</div>
+    <div>A cura di Elia Pilati</div>
+  </div>
+</footer>
+
+<script src="opere-data.js"></script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  const opera = OPERE.find(function (o) { return o.id === id; });
+  const content = document.getElementById('content');
+
+  if (!opera) {
+    content.innerHTML =
+      '<div class="not-found">' +
+      '<p>Opera non trovata' + (id ? ' (id: "' + id + '")' : '') + '.</p>' +
+      '<p><a class="back" href="index.html">← Torna all\'indice</a></p>' +
+      '</div>';
+  } else {
+    const imgBlock = opera.immagine
+      ? '<img src="' + opera.immagine + '" alt="' + opera.titolo + '">'
+      : '<div class="missing">Immagine non ancora caricata</div>';
+
+    const paragraphs = (opera.dissertazione || [])
+      .map(function (p) { return '<p>' + p + '</p>'; })
+      .join('');
+
+    content.innerHTML =
+      '<div class="figure">' + imgBlock + '</div>' +
+      '<h1 class="title">' + opera.titolo + '</h1>' +
+      '<div class="reference">' + opera.riferimento + '</div>' +
+      '<div class="dissertation">' +
+      '<h2>Dissertazione</h2>' +
+      paragraphs +
+      '</div>';
+
+    document.title = opera.titolo + ' — Grammatica Postfisiognomica';
+  }
+</script>
+
+</body>
+</html>

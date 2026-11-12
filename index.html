@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grammatica Postfisiognomica</title>
+<meta name="description" content="Grammatica postfisiognomica — un progetto su immagini generate con intelligenza artificiale.">
+
+<!--
+  COME PERSONALIZZARE QUESTO SITO
+  --------------------------------
+  1. Testi: cerca i blocchi di testo nelle sezioni "statement", "nota" e "colophon" e sostituiscili
+     con i tuoi.
+  2. Immagini: nella sezione "Gallery" trovi delle "tile" segnaposto (riquadri tratteggiati con
+     numero). Per inserire una tua immagine, sostituisci il contenuto di una .tile con:
+       <img src="images/01.jpg" alt="Descrizione dell'opera">
+     Basta creare una cartella "images" accanto a questo file index.html e caricarci i file.
+  3. Titolo scheda browser e descrizione: modifica i tag <title> e <meta name="description"> qui sopra.
+  4. Per pubblicarlo con GitHub Pages: crea un repository, carica questo file come index.html
+     (ed eventualmente la cartella images/), poi in Settings → Pages seleziona il branch principale.
+-->
+
+<style>
+  :root {
+    --bg: #f4f3ef;
+    --ink: #111111;
+    --muted: #6b6a66;
+    --line: #111111;
+    --accent: #b5321c;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  a { color: inherit; }
+
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* Header */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+  }
+
+  .nav .mark {
+    font-family: Georgia, serif;
+    font-size: 15px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .nav ul {
+    list-style: none;
+    display: flex;
+    gap: 28px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav a {
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .nav a:hover { color: var(--ink); }
+
+  /* Hero */
+  .hero {
+    padding: 96px 0 72px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hero .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.4rem, 6vw, 4.6rem);
+    line-height: 1.04;
+    max-width: 14ch;
+  }
+
+  .hero .sub {
+    margin-top: 24px;
+    max-width: 48ch;
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+
+  /* Statement */
+  .statement {
+    padding: 72px 0;
+    border-bottom: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 48px;
+  }
+
+  .statement h2 {
+    font-size: 1.1rem;
+    letter-spacing: 0.04em;
+  }
+
+  .statement .num {
+    display: block;
+    font-family: Georgia, serif;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .statement p {
+    max-width: 62ch;
+    margin: 0 0 18px;
+  }
+
+  .statement p:last-child { margin-bottom: 0; }
+
+  /* Gallery */
+  .gallery-section {
+    padding: 72px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .gallery-section > .wrap > h2 {
+    font-size: 1.1rem;
+    letter-spacing: 0.04em;
+    margin-bottom: 36px;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .tile {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    border: 1px dashed var(--muted);
+    display: flex;
+    align-items: flex-end;
+    padding: 14px;
+    overflow: hidden;
+    text-decoration: none;
+    background:
+      repeating-linear-gradient(
+        135deg,
+        rgba(17,17,17,0.04) 0px,
+        rgba(17,17,17,0.04) 2px,
+        transparent 2px,
+        transparent 14px
+      );
+    transition: border-color 0.15s ease;
+  }
+
+  .tile:hover {
+    border-color: var(--ink);
+  }
+
+  .tile:hover .cap {
+    color: var(--ink);
+  }
+
+  .tile img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .tile .cap {
+    position: relative;
+    z-index: 1;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    background: var(--bg);
+    padding: 2px 6px;
+  }
+
+  .tile.wide {
+    grid-column: span 2;
+  }
+
+  @media (max-width: 760px) {
+    .statement { grid-template-columns: 1fr; }
+    .gallery { grid-template-columns: repeat(2, 1fr); }
+    .tile.wide { grid-column: span 2; }
+  }
+
+  /* Nota metodologica */
+  .nota {
+    padding: 72px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nota .wrap {
+    max-width: 680px;
+  }
+
+  .nota h2 {
+    font-size: 1.1rem;
+    letter-spacing: 0.04em;
+    margin-bottom: 20px;
+  }
+
+  .nota p { color: var(--muted); }
+
+  /* Colophon / Footer */
+  footer {
+    padding: 48px 0 64px;
+  }
+
+  footer .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+
+  footer a { text-decoration: underline; text-underline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="mark">Grammatica Postfisiognomica</div>
+    <ul>
+      <li><a href="#statement">Statement</a></li>
+      <li><a href="#gallery">Immagini</a></li>
+      <li><a href="#nota">Nota</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Progetto in corso — 2026</div>
+    <h1>Grammatica<br>Postfisiognomica</h1>
+    <p class="sub">
+      Un'indagine per immagini sui volti generati da intelligenze artificiali e sulle
+      grammatiche visive che, al di là della fisiognomica storica, continuano a
+      organizzare lo sguardo in tipi, tratti e categorie.
+    </p>
+  </div>
+</section>
+
+<section class="statement" id="statement">
+  <div class="wrap" style="display:contents">
+    <div>
+      <span class="num">01</span>
+      <h2>Statement</h2>
+    </div>
+    <div>
+      <p>
+        <!-- Sostituisci questo testo con il tuo statement effettivo. -->
+        La fisiognomica ottocentesca pretendeva di leggere il carattere nei tratti del volto.
+        Le immagini generate da modelli di intelligenza artificiale, pur non dichiarandolo,
+        riproducono una logica affine: ricombinano miliardi di volti fotografati in nuovi
+        tipi plausibili, in cui etnia, età, genere ed espressione tornano a funzionare come
+        segni leggibili, prevedibili, classificabili.
+      </p>
+      <p>
+        <em>Grammatica postfisiognomica</em> raccoglie una serie di immagini generate e le
+        mette in tensione con i propri prompt, isolando le regole implicite — la "grammatica" —
+        che il modello applica per produrre un volto credibile. Non un catalogo di ritratti,
+        ma un atlante delle regole che li rendono possibili.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="gallery-section" id="gallery">
+  <div class="wrap">
+    <h2>Immagini</h2>
+    <div class="gallery">
+      <!--
+        Ogni tile è un link a opera.html?id=NN. L'id deve corrispondere a una voce
+        dell'array OPERE in opere-data.js: è lì che si imposta l'immagine vera,
+        il riferimento e la dissertazione da mostrare nella pagina di dettaglio.
+        Lo sfondo tratteggiato sparisce da solo appena opere-data.js punta a
+        un'immagine reale, perché l'immagine viene mostrata anche qui in anteprima.
+      -->
+      <a class="tile" data-id="01" href="opera.html?id=01"><span class="cap">01 — da sostituire</span></a>
+      <a class="tile" data-id="02" href="opera.html?id=02"><span class="cap">02 — da sostituire</span></a>
+      <a class="tile" data-id="03" href="opera.html?id=03"><span class="cap">03 — da sostituire</span></a>
+      <a class="tile wide" data-id="04" href="opera.html?id=04"><span class="cap">04 — da sostituire</span></a>
+      <a class="tile" data-id="05" href="opera.html?id=05"><span class="cap">05 — da sostituire</span></a>
+      <a class="tile" data-id="06" href="opera.html?id=06"><span class="cap">06 — da sostituire</span></a>
+      <a class="tile" data-id="07" href="opera.html?id=07"><span class="cap">07 — da sostituire</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="nota" id="nota">
+  <div class="wrap">
+    <span class="num" style="display:block; font-size:13px; color:var(--muted); margin-bottom:10px;">02</span>
+    <h2>Nota metodologica</h2>
+    <p>
+      <!-- Sostituisci con la tua nota metodologica: modelli usati, criteri di selezione dei prompt,
+           eventuale lavoro sulle varianti, fonti teoriche di riferimento, ecc. -->
+      Le immagini qui raccolte sono state generate tra [mese/anno] e [mese/anno] a partire da
+      una serie di prompt costruiti per isolare singole variabili (età, espressione, contesto,
+      illuminazione). Il progetto non intende produrre un giudizio sulle tecnologie impiegate,
+      ma documentarne il funzionamento tassonomico.
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap row">
+    <div>Grammatica Postfisiognomica — © 2026</div>
+    <div>A cura di Elia Pilati · <a href="mailto:tuaemail@esempio.it">contatto</a></div>
+  </div>
+</footer>
+
+<!--
+  Questo script legge opere-data.js e, per ogni opera che ha già un'immagine impostata,
+  la mostra come anteprima dentro la tile corrispondente (stessa immagine che poi si
+  vede in grande in opera.html). Finché non imposti un'immagine in opere-data.js, la
+  tile resta come segnaposto tratteggiato.
+-->
+<script src="opere-data.js"></script>
+<script>
+  OPERE.forEach(function (opera) {
+    if (!opera.immagine) return;
+    var tile = document.querySelector('.tile[data-id="' + opera.id + '"]');
+    if (!tile) return;
+    var img = document.createElement('img');
+    img.src = opera.immagine;
+    img.alt = opera.titolo;
+    tile.prepend(img);
+  });
+</script>
+
+</body>
+</html>
