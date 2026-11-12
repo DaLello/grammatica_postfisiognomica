@@ -17,7 +17,7 @@ const OPERE = [
   {
     id: "01",
     titolo: "Senza titolo 01",
-    immagine: "images/01.jpg",
+    immagine: "images/01.png",
     riferimento: "Prompt: [inserisci qui il prompt usato] — Modello: [es. Midjourney v6] — Data: [mese/anno]",
     dissertazione: [
       "Sostituisci questo paragrafo con il commento critico relativo a questa immagine: quali variabili del prompt erano in gioco, quale tipo fisiognomico il modello ha prodotto, cosa rivela sulla grammatica implicita del sistema.",
@@ -27,7 +27,7 @@ const OPERE = [
   {
     id: "02",
     titolo: "Senza titolo 02",
-    immagine: "images/02.jpg",
+    immagine: "images/02.png",
     riferimento: "Prompt: [inserisci qui il prompt usato] — Modello: [es. Midjourney v6] — Data: [mese/anno]",
     dissertazione: [
       "Testo segnaposto. Sostituisci con la dissertazione relativa a questa immagine."
@@ -36,7 +36,7 @@ const OPERE = [
   {
     id: "03",
     titolo: "Senza titolo 03",
-    immagine: "images/03.jpg",
+    immagine: "images/03.png",
     riferimento: "Prompt: [inserisci qui il prompt usato] — Modello: [es. Midjourney v6] — Data: [mese/anno]",
     dissertazione: [
       "Testo segnaposto. Sostituisci con la dissertazione relativa a questa immagine."
